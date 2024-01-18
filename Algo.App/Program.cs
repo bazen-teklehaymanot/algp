@@ -1,11 +1,9 @@
-using System.Reflection;
-using NSwag.AspNetCore;
-
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllersWithViews();
 builder.Services.AddSingleton<ICacheFactory, CacheFactory>();
 builder.Services.AddSingleton<IStringMatcherFactory, StringMatcherFactory>();
+builder.Services.AddOpenApiDocument();
 
 var app = builder.Build();
 
@@ -19,18 +17,11 @@ if (!app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 
-
-// app.UseSwaggerUi3(settings =>
-//     {
-//         settings.Path = "/api";
-//         settings.DocumentPath = "/api/specification.json";
-//     });
-
-// app.UseSwaggerUi( Assembly.GetExecutingAssembly(), settings =>
-// {
-//     settings.Path = "/api";
-//     settings.DocumentPath = "/api/specification.json";
-// });
+app.UseSwaggerUi(settings =>
+{
+    settings.Path = "/api";
+    settings.DocumentPath = "/api/specification.json";
+});
 
 app.UseRouting();
 

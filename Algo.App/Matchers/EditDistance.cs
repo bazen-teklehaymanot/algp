@@ -2,7 +2,7 @@
 
 public class EditDistance : IStringMatcher
 {
-    public float Match(string a, string b)
+    public float Match(string a, string b, float earlyExit = 0f)
     {
         var m = a.Length;
         var n = b.Length;

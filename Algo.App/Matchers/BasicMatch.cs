@@ -2,7 +2,7 @@
 
 public class BasicMatch : IStringMatcher
 {
-    public float Match(string a, string b)
+    public float Match(string a, string b, float earlyExit = 0f)
     {
         if( string.IsNullOrWhiteSpace(a) 
             || string.IsNullOrWhiteSpace(b))

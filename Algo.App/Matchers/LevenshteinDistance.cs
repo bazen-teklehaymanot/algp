@@ -2,7 +2,7 @@
 
 public class LevenshteinDistance : IStringMatcher
 {
-    public float Match(string a, string b)
+    public float Match(string a, string b, float earlyExit = 0f)
     {
         if (string.IsNullOrEmpty(a))
         {
@@ -21,6 +21,7 @@ public class LevenshteinDistance : IStringMatcher
         for (int i = 0; i <= lengthA; distances[i, 0] = i++) ;
         for (int j = 0; j <= lengthB; distances[0, j] = j++) ;
 
+        int minDistance = Math.Max(lengthA, lengthB); 
         for (int i = 1; i <= lengthA; i++)
         {
             for (int j = 1; j <= lengthB; j++)
@@ -30,6 +31,13 @@ public class LevenshteinDistance : IStringMatcher
                 distances[i, j] = Math.Min(
                     Math.Min(distances[i - 1, j] + 1, distances[i, j - 1] + 1),
                     distances[i - 1, j - 1] + cost);
+
+                minDistance = Math.Min(minDistance, distances[i, j]); // Update min distance
+
+                if (minDistance > earlyExit)
+                {
+                    return float.PositiveInfinity;
+                }
             }
         }
 

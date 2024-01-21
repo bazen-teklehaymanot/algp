@@ -5,6 +5,8 @@ VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Algo.App", "Algo.App\Algo.App.csproj", "{DDBEBEA2-8977-4CE8-ABEF-6B3B312D1791}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Algo.App.Benchmark", "Algo.App.Benchmark\Algo.App.Benchmark.csproj", "{A8C7C3A7-AA58-47EF-9C6C-D7B2051025E4}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -18,5 +20,9 @@ Global
 		{DDBEBEA2-8977-4CE8-ABEF-6B3B312D1791}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DDBEBEA2-8977-4CE8-ABEF-6B3B312D1791}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DDBEBEA2-8977-4CE8-ABEF-6B3B312D1791}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A8C7C3A7-AA58-47EF-9C6C-D7B2051025E4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A8C7C3A7-AA58-47EF-9C6C-D7B2051025E4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A8C7C3A7-AA58-47EF-9C6C-D7B2051025E4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A8C7C3A7-AA58-47EF-9C6C-D7B2051025E4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

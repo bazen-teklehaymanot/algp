@@ -46,9 +46,9 @@ interface MeanShiftClusteringProps {
 }
 
 export function MeanShiftClustering(props: MeanShiftClusteringProps) {
-    const [clustering, setClustering] = useState<'mean-shift' | 'nearest-neighbor'>('mean-shift');
+    const [clustering, setClustering] = useState<'mean-shift' | 'nearest-neighbor'>('nearest-neighbor');
     const meanShifDataSet = useMeanShiftDataSet();
-    const nearestNeighborDataSet = useNearestNeighborDataSet(50);
+    const nearestNeighborDataSet = useNearestNeighborDataSet(10);
     return (
         <Card variant="soft" style={{ height: '100%' }} >
             <Select

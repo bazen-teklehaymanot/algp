@@ -15,8 +15,8 @@ export function RentalDashboard() {
       <Grid container spacing={2} sx={{ flexGrow: 1, height: 'calc(100vh - 55px)' }}>
         <Grid xs={6}>
           <Stack sx={{ pl: 2, pt: 2, minHeight: 0, height: '100%' }}>
-            {/* <MeanShiftClustering 
-              title='Mean Shift' /> */}
+            <MeanShiftClustering 
+              title='Mean Shift' />
           </Stack>
         </Grid>
 

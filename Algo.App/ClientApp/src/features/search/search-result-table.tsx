@@ -76,7 +76,6 @@ export function SearchResultTable(props: SearchResultTableProps) {
                 variant="outlined"
                 sx={{
                     '--TableCell-height': '40px',
-                    // the number is the amount of the header rows.
                     '--TableHeader-height': 'calc(1 * var(--TableCell-height))',
                     height: '38vh',
                     overflow: 'auto',

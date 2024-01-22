@@ -4,8 +4,17 @@ import MapsHomeWorkIcon from '@mui/icons-material/MapsHomeWork';
 import ColorSchemeToggle from './color-scheme-toggle';
 import SearchRoundedIcon from '@mui/icons-material/SearchRounded';
 import Input from '@mui/joy/Input';
+import { updateFilterName } from '../features/filter/filter-slice';
+import { useAppDispatch, useAppSelector } from '../app/hooks';
 
 export function NavBar() {
+  const filterName = useAppSelector(state => state.globalFilter.name);
+  const dispatch = useAppDispatch();
+
+  function handlerFilterChange(e: any){
+    dispatch(updateFilterName(e.target.value));
+  }
+
   return (
     <Box
       sx={{
@@ -40,6 +49,8 @@ export function NavBar() {
 
       <Box sx={{ display: 'flex', flexDirection: 'row', gap: 3 }}>
         <Input
+          value={filterName}
+          onChange={handlerFilterChange}
           size="sm"
           variant="outlined"
           placeholder="Search company…"

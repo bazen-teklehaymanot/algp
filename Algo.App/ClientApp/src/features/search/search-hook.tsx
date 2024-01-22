@@ -1,25 +1,23 @@
 import { useMemo } from "react";
 import { useAppSelector } from "../../app/hooks";
 import { levenshteinCost } from "../../core/levenshtein-distance";
-import { Company } from "../companies/company-slice";
+import { Company } from "../companies/company-service";
 
 interface LevenshteinDistanceMatchResult extends Company {
     distance: number
 }
 
-export function useLevenshteinDistanceMatch(input: string): LevenshteinDistanceMatchResult[] {
+export function useLevenshteinDistanceMatch(): LevenshteinDistanceMatchResult[] {
     const { value: companies } = useAppSelector(state => state.company_state);
+    const filterName = useAppSelector(state => state.globalFilter.name);
     const lvdmr = useMemo(() => {
-        const query = "apple";
         const results = companies.map(company => {
-            const distance = levenshteinCost(query, company.name);
+            const distance = levenshteinCost(filterName, company.name);
             return { ...company, distance };
         });
         results.sort((a, b) => a.distance - b.distance);
-
-        console.log('HOOK',{ results })
         return results;
-    }, [companies]);
+    }, [companies, filterName]);
 
     return lvdmr;
 }

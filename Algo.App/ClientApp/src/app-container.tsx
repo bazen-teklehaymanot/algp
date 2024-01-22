@@ -6,48 +6,17 @@ import { SearchResultTable } from './features/search/search-result-table';
 import { Grid } from '@mui/joy';
 import { MeanShiftClustering } from './features/clustering/meanshift-visualization';
 
-const input = 'Micrs';
-
-const ld = [
-  {
-    id: '05',
-    name: 'Microsoft',
-    score: 4
-  },
-  {
-    id: '04',
-    name: 'Microsemi',
-    score: 4
-  },
-  {
-    id: '03',
-    name: 'Microchip',
-    score: 5
-  },
-  {
-    id: '02',
-    name: 'MicroFocus',
-    score: 5
-  },
-  {
-    id: '01',
-    name: 'MicroStrategy',
-    score: 8
-  },
-
-]
 
 export function RentalDashboard() {
   return (
     <CssVarsProvider disableTransitionOnChange>
       <CssBaseline />
       <NavBar />
-
       <Grid container spacing={2} sx={{ flexGrow: 1, height: 'calc(100vh - 55px)' }}>
         <Grid xs={6}>
           <Stack sx={{ pl: 2, pt: 2, minHeight: 0, height: '100%' }}>
-            <MeanShiftClustering 
-              title='Mean Shift' />
+            {/* <MeanShiftClustering 
+              title='Mean Shift' /> */}
           </Stack>
         </Grid>
 
@@ -63,12 +32,13 @@ export function RentalDashboard() {
               <Grid xs={12}>
                 <SearchResultTable
                   title='Levenshtein Distance'
-                  data={ld}
+                  data={[]}
                 />
               </Grid>
             </Grid>
           </Stack>
         </Grid>
+        
       </Grid>
     </CssVarsProvider >
   );

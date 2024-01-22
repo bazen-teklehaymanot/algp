@@ -1,6 +1,6 @@
 import { useMemo } from "react";
 import { useAppSelector } from "../../app/hooks";
-import { Company } from "../companies/company-slice";
+import { Company } from "../companies/company-service";
 import { Point, clusterShiftedPoints, meanShift } from "../../core/mean-shift";
 import { generateUniqueColors } from "../utils";
 import { nearestNeighbor } from "../../core/nearest-neighbour";

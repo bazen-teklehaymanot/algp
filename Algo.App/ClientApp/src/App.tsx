@@ -1,28 +1,34 @@
-import { Fragment, useLayoutEffect } from 'react';
+import { Fragment, useEffect } from 'react';
 import { RentalDashboard } from './app-container';
 import { useAppDispatch, useAppSelector } from './app/hooks';
 import { fetchCompaniesAsync } from './features/companies/company-slice';
 
 function App() {
-  const { status, value } = useAppSelector(state => state.company_state);
+  const company_state = useAppSelector(state => state.company_state);
   const dispatch = useAppDispatch();
-  useLayoutEffect(() => {
+
+  useEffect(() => {
     dispatch(fetchCompaniesAsync(10))
   }, []);
+
+  useEffect(() => {
+    console.log({ company_state })
+  }, [company_state]);
+
 
   return (
     <Fragment>
       {
-        status === 'loading' &&
+        company_state.status === 'loading' &&
         <div>Loading...</div>
       }
       {
-        status === 'failed' &&
+        company_state.status === 'failed' &&
         <div>Failed to load</div>
       }
       {
-        status === 'idle' &&
-        value.length > 0 &&
+        company_state.status === 'idle' &&
+        company_state.value.length > 0 &&
         <RentalDashboard />
       }
 

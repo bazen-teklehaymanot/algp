@@ -10,6 +10,7 @@ import { Card } from '@mui/joy';
 import { LevenshteinVisualizationModal } from './levenshtein-visualization';
 import { useLevenshteinDistanceMatch } from './search-hook';
 import { useEffect } from 'react';
+import { useAppSelector } from '../../app/hooks';
 
 
 
@@ -62,10 +63,9 @@ interface SearchResultTableProps {
 }
 
 export function SearchResultTable(props: SearchResultTableProps) {
-    const result = useLevenshteinDistanceMatch('Micrt');
-    useEffect(()=> {
-        console.log({result})
-    },[])
+    const result = useLevenshteinDistanceMatch();
+    const filterName = useAppSelector(state => state.globalFilter.name);
+
 
     return (
         <Card variant="soft" style={{ height: '100%' }} >
@@ -146,8 +146,8 @@ export function SearchResultTable(props: SearchResultTableProps) {
                                 </td>
                                 <td>
                                     <LevenshteinVisualizationModal
-                                        firstWord={row.name}
-                                        secondWord='Micrt'
+                                        firstWord={filterName}
+                                        secondWord={row.name}
                                     />
                                 </td>
                             </tr>

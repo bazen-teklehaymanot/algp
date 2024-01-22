@@ -1,14 +1,7 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { RootState } from '../../app/store';
-import { fetchCompanies } from './company-service';
+import { Company, fetchCompanies } from './company-service';
 
-export interface Company {
-    id: string;
-    name: string;
-    domain: string;
-    revenue: number;
-    numberOfEmployees: number;
-}
 
 export interface CompanyState {
     value: Company[];
@@ -37,6 +30,10 @@ export const companySlice = createSlice({
         addCompany: (state, action: PayloadAction<Company>) => {
             state.value.push(action.payload);
         },
+        addCompanies: (state, action: PayloadAction<Company[]>) => {
+            state.value = [...state.value, ...action.payload];
+            state.status = 'idle';
+        }
     },
     extraReducers: (builder) => {
         builder
@@ -53,7 +50,7 @@ export const companySlice = createSlice({
     },
 });
 
-export const { clear } = companySlice.actions;
+export const { clear, addCompanies } = companySlice.actions;
 export const { reducer: companyReducer } = companySlice;
 
-export const selectCount = (state: RootState) => state.counter.value;
+export const selectCompanies = (state: RootState) => state.company_state.value;

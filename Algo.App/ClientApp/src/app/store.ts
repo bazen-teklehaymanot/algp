@@ -1,10 +1,10 @@
 import { configureStore, ThunkAction, Action } from '@reduxjs/toolkit';
-import counterReducer from '../features/counter/counterSlice';
+import { globalFilterReducer } from '../features/filter/filter-slice';
 import { companyReducer } from '../features/companies/company-slice';
 
 export const store = configureStore({
   reducer: {
-    counter: counterReducer,
+    globalFilter: globalFilterReducer,
     company_state: companyReducer,
   },
 });

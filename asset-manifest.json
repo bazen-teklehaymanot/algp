@@ -1,0 +1,12 @@
+{
+  "files": {
+    "main.js": "/algp/static/js/main.e83831cd.js",
+    "static/js/787.13e3e0c6.chunk.js": "/algp/static/js/787.13e3e0c6.chunk.js",
+    "index.html": "/algp/index.html",
+    "main.e83831cd.js.map": "/algp/static/js/main.e83831cd.js.map",
+    "787.13e3e0c6.chunk.js.map": "/algp/static/js/787.13e3e0c6.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/js/main.e83831cd.js"
+  ]
+}

@@ -8,6 +8,8 @@ import Typography from '@mui/joy/Typography';
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import { Card } from '@mui/joy';
 import { LevenshteinVisualizationModal } from './levenshtein-visualization';
+import { useLevenshteinDistanceMatch } from './search-hook';
+import { useEffect } from 'react';
 
 
 
@@ -60,7 +62,10 @@ interface SearchResultTableProps {
 }
 
 export function SearchResultTable(props: SearchResultTableProps) {
-    const [order, setOrder] = React.useState<Order>('desc');
+    const result = useLevenshteinDistanceMatch('Micrt');
+    useEffect(()=> {
+        console.log({result})
+    },[])
 
     return (
         <Card variant="soft" style={{ height: '100%' }} >
@@ -70,14 +75,34 @@ export function SearchResultTable(props: SearchResultTableProps) {
             <Sheet
                 variant="outlined"
                 sx={{
-                    display: { xs: 'none', sm: 'initial' },
-                    width: '100%',
-                    borderRadius: 'sm',
-                    flexShrink: 1,
+                    '--TableCell-height': '40px',
+                    // the number is the amount of the header rows.
+                    '--TableHeader-height': 'calc(1 * var(--TableCell-height))',
+                    height: '38vh',
                     overflow: 'auto',
-                    minHeight: 0,
-                    height: '100%',
-                }}
+                    borderRadius: '10px',
+                    background: (
+                      theme,
+                    ) => `linear-gradient(${theme.vars.palette.background.surface} 30%, rgba(255, 255, 255, 0)),
+                      linear-gradient(rgba(255, 255, 255, 0), ${theme.vars.palette.background.surface} 70%) 0 100%,
+                      radial-gradient(
+                        farthest-side at 50% 0,
+                        rgba(0, 0, 0, 0.12),
+                        rgba(0, 0, 0, 0)
+                      ),
+                      radial-gradient(
+                          farthest-side at 50% 100%,
+                          rgba(0, 0, 0, 0.12),
+                          rgba(0, 0, 0, 0)
+                        )
+                        0 100%`,
+                    backgroundSize: '100% 40px, 100% 40px, 100% 14px, 100% 14px',
+                    backgroundRepeat: 'no-repeat',
+                    backgroundAttachment: 'local, local, scroll, scroll',
+                    backgroundPosition:
+                      '0 var(--TableHeader-height), 0 100%, 0 var(--TableHeader-height), 0 100%',
+                    backgroundColor: 'background.surface',
+                  }}
             >
                 <Table
                     aria-labelledby="tableTitle"
@@ -100,16 +125,8 @@ export function SearchResultTable(props: SearchResultTableProps) {
                                     underline="none"
                                     color="primary"
                                     component="button"
-                                    onClick={() => setOrder(order === 'asc' ? 'desc' : 'asc')}
                                     fontWeight="lg"
                                     endDecorator={<ArrowDropDownIcon />}
-                                    sx={{
-                                        '& svg': {
-                                            transition: '0.2s',
-                                            transform:
-                                                order === 'desc' ? 'rotate(0deg)' : 'rotate(180deg)',
-                                        },
-                                    }}
                                 >
                                     Cost
                                 </Link>
@@ -119,10 +136,10 @@ export function SearchResultTable(props: SearchResultTableProps) {
                         </tr>
                     </thead>
                     <tbody>
-                        {stableSort(props.data, getComparator(order, 'id')).map((row) => (
+                        {result.map((row) => (
                             <tr key={row.id}>
                                 <td>
-                                    <Typography level="body-xs">{row.score}</Typography>
+                                    <Typography level="body-xs">{row.distance}</Typography>
                                 </td>
                                 <td>
                                     <Typography level="body-xs">{row.name}</Typography>
@@ -136,6 +153,7 @@ export function SearchResultTable(props: SearchResultTableProps) {
                             </tr>
                         ))}
                     </tbody>
+                   
                 </Table>
             </Sheet>
         </Card>

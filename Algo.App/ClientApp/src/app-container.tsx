@@ -2,9 +2,9 @@ import { CssVarsProvider } from '@mui/joy/styles';
 import CssBaseline from '@mui/joy/CssBaseline';
 import Stack from '@mui/joy/Stack';
 import { NavBar } from './components/navbar';
-import { SearchResultTable } from './components/search-result-table';
+import { SearchResultTable } from './features/search/search-result-table';
 import { Grid } from '@mui/joy';
-import { MeanShiftClustering } from './components/clustering-vis';
+import { MeanShiftClustering } from './features/clustering/meanshift-visualization';
 
 const input = 'Micrs';
 
@@ -46,7 +46,8 @@ export function RentalDashboard() {
       <Grid container spacing={2} sx={{ flexGrow: 1, height: 'calc(100vh - 55px)' }}>
         <Grid xs={6}>
           <Stack sx={{ pl: 2, pt: 2, minHeight: 0, height: '100%' }}>
-            <MeanShiftClustering title='Mean Shift' />
+            <MeanShiftClustering 
+              title='Mean Shift' />
           </Stack>
         </Grid>
 

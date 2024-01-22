@@ -2,7 +2,7 @@ import * as React from "react";
 import $ from "jquery";
 import { ReactNode, useEffect, useLayoutEffect, useMemo, useState } from "react";
 import { Accordion, AccordionDetails, AccordionGroup, AccordionSummary, Button, Card,Input, Modal, ModalClose, ModalDialog, Sheet, Stack, Step, StepIndicator, Stepper, Switch, Typography } from "@mui/joy";
-import { LevenshteinPath, levenshteinDistance } from "../core/levenshtein-distance";
+import { LevenshteinPath, levenshteinDistance } from "../../core/levenshtein-distance";
 
 
 function loop<T>(i: number, callback: (i: number) => T): T[] {

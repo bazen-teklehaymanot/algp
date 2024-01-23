@@ -3,11 +3,11 @@ import { useAppSelector } from "../../app/hooks";
 import { levenshteinCost } from "../../core/levenshtein-distance";
 import { Company } from "../companies/company-service";
 
-interface LevenshteinDistanceMatchResult extends Company {
+export interface CompanyMatchResult extends Company {
     distance: number
 }
 
-export function useLevenshteinDistanceMatch(): LevenshteinDistanceMatchResult[] {
+export function useLevenshteinDistanceMatch(): CompanyMatchResult[] {
     const { value: companies } = useAppSelector(state => state.company_state);
     const filterName = useAppSelector(state => state.globalFilter.name);
     const lvdmr = useMemo(() => {
@@ -20,4 +20,15 @@ export function useLevenshteinDistanceMatch(): LevenshteinDistanceMatchResult[] 
     }, [companies, filterName]);
 
     return lvdmr;
+}
+
+export function useBasicSearch(): CompanyMatchResult[] {
+    const { value: companies } = useAppSelector(state => state.company_state);
+    const filterName = useAppSelector(state => state.globalFilter.name);
+    const results = useMemo<CompanyMatchResult[]>(() => {
+        const results = companies.filter(company => company.name.toLowerCase().includes(filterName.toLowerCase()));
+        return results.map(r => ({ ...r, distance: 1}));
+    }, [companies, filterName]);
+
+    return results;
 }

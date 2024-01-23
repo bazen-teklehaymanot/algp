@@ -8,64 +8,19 @@ import Typography from '@mui/joy/Typography';
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import { Card } from '@mui/joy';
 import { LevenshteinVisualizationModal } from './levenshtein-visualization';
-import { useLevenshteinDistanceMatch } from './search-hook';
-import { useEffect } from 'react';
+import { CompanyMatchResult } from './search-hook';
 import { useAppSelector } from '../../app/hooks';
 
 
 
-function descendingComparator<T>(a: T, b: T, orderBy: keyof T) {
-    if (b[orderBy] < a[orderBy]) {
-        return -1;
-    }
-    if (b[orderBy] > a[orderBy]) {
-        return 1;
-    }
-    return 0;
-}
-
-type Order = 'asc' | 'desc';
-
-function getComparator<Key extends keyof any>(
-    order: Order,
-    orderBy: Key,
-): (
-    a: { [key in Key]: number | string },
-    b: { [key in Key]: number | string },
-) => number {
-    return order === 'desc'
-        ? (a, b) => descendingComparator(a, b, orderBy)
-        : (a, b) => -descendingComparator(a, b, orderBy);
-}
-
-
-function stableSort<T>(array: readonly T[], comparator: (a: T, b: T) => number) {
-    const stabilizedThis = array.map((el, index) => [el, index] as [T, number]);
-    stabilizedThis.sort((a, b) => {
-        const order = comparator(a[0], b[0]);
-        if (order !== 0) {
-            return order;
-        }
-        return a[1] - b[1];
-    });
-    return stabilizedThis.map((el) => el[0]);
-}
-
-interface ResultData {
-    id: string | number,
-    name: string,
-    score: number
-}
-
 interface SearchResultTableProps {
     title?: string,
-    data: ResultData[]
+    result: CompanyMatchResult[],
+    isLevenshtein?: boolean
 }
 
 export function SearchResultTable(props: SearchResultTableProps) {
-    const result = useLevenshteinDistanceMatch();
     const filterName = useAppSelector(state => state.globalFilter.name);
-
 
     return (
         <Card variant="soft" style={{ height: '100%' }} >
@@ -135,7 +90,7 @@ export function SearchResultTable(props: SearchResultTableProps) {
                         </tr>
                     </thead>
                     <tbody>
-                        {result.map((row) => (
+                        {props.result.map((row) => (
                             <tr key={row.id}>
                                 <td>
                                     <Typography level="body-xs">{row.distance}</Typography>
@@ -144,10 +99,13 @@ export function SearchResultTable(props: SearchResultTableProps) {
                                     <Typography level="body-xs">{row.name}</Typography>
                                 </td>
                                 <td>
-                                    <LevenshteinVisualizationModal
-                                        firstWord={filterName}
-                                        secondWord={row.name}
-                                    />
+                                    {
+                                        props.isLevenshtein &&
+                                        <LevenshteinVisualizationModal
+                                            firstWord={filterName}
+                                            secondWord={row.name}
+                                        />
+                                    }
                                 </td>
                             </tr>
                         ))}

@@ -6,6 +6,7 @@ import {
     LineElement,
     Tooltip,
     Legend,
+    ChartOptions,
 } from 'chart.js';
 import { Scatter } from 'react-chartjs-2';
 import { Hub } from "@mui/icons-material";
@@ -38,16 +39,15 @@ const options = {
             }
         }
     }
-
 };
 
 interface MeanShiftClusteringProps {
     title: string;
 }
 
-export function MeanShiftClustering(props: MeanShiftClusteringProps) {
+export function ClusteringVisualization(props: MeanShiftClusteringProps) {
     const [clustering, setClustering] = useState<'mean-shift' | 'nearest-neighbor'>('nearest-neighbor');
-    const meanShifDataSet = useMeanShiftDataSet();
+    const meanShiftDataSet = useMeanShiftDataSet();
     const nearestNeighborDataSet = useNearestNeighborDataSet(10);
     return (
         <Card variant="soft" style={{ height: '100%' }} >
@@ -68,13 +68,15 @@ export function MeanShiftClustering(props: MeanShiftClusteringProps) {
                 clustering === 'mean-shift' &&
                 <Scatter
                     options={options}
-                    data={meanShifDataSet} />
+                    data={meanShiftDataSet} 
+                    updateMode='resize'/>
             }
             {
                 clustering === 'nearest-neighbor' &&
                 <Scatter
                     options={options}
                     data={nearestNeighborDataSet}
+                    updateMode='resize'
                 />
             }
         </Card>

@@ -2,12 +2,16 @@ import { CssVarsProvider } from '@mui/joy/styles';
 import CssBaseline from '@mui/joy/CssBaseline';
 import Stack from '@mui/joy/Stack';
 import { NavBar } from './components/navbar';
-import { SearchResultTable } from './features/search/search-result-table';
 import { Grid } from '@mui/joy';
-import { MeanShiftClustering } from './features/clustering/meanshift-visualization';
+import { ClusteringVisualization } from './features/clustering/meanshift-visualization';
+import { LevenshteinDistanceMatch } from './features/search/levenshtein-search';
+import { BasicSearch } from './features/search/basic-search';
+import { usePeriodicIngest } from './features/utils/ingest';
 
 
-export function RentalDashboard() {
+export function VisualizationContainer() {
+  usePeriodicIngest();
+  
   return (
     <CssVarsProvider disableTransitionOnChange>
       <CssBaseline />
@@ -15,7 +19,7 @@ export function RentalDashboard() {
       <Grid container spacing={2} sx={{ flexGrow: 1, height: 'calc(100vh - 55px)' }}>
         <Grid xs={6}>
           <Stack sx={{ pl: 2, pt: 2, minHeight: 0, height: '100%' }}>
-            <MeanShiftClustering 
+            <ClusteringVisualization 
               title='Mean Shift' />
           </Stack>
         </Grid>
@@ -24,16 +28,10 @@ export function RentalDashboard() {
           <Stack sx={{ pt: 2, pr: 2, minHeight: 0, height: '100%' }}>
             <Grid container spacing={2} sx={{ flexGrow: 1, height: '100%' }}>
               <Grid xs={12}>
-                <SearchResultTable
-                  title='Basic Similarity'
-                  data={[]}
-                />
+                <BasicSearch/>
               </Grid>
               <Grid xs={12}>
-                <SearchResultTable
-                  title='Levenshtein Distance'
-                  data={[]}
-                />
+                <LevenshteinDistanceMatch/>
               </Grid>
             </Grid>
           </Stack>

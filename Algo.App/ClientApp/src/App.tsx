@@ -1,5 +1,5 @@
-import { Fragment, useEffect } from 'react';
-import { RentalDashboard } from './app-container';
+import { Fragment, useLayoutEffect } from 'react';
+import { VisualizationContainer } from './app-container';
 import { useAppDispatch, useAppSelector } from './app/hooks';
 import { fetchCompaniesAsync } from './features/companies/company-slice';
 
@@ -7,13 +7,9 @@ function App() {
   const company_state = useAppSelector(state => state.company_state);
   const dispatch = useAppDispatch();
 
-  useEffect(() => {
-    dispatch(fetchCompaniesAsync(10))
+  useLayoutEffect(() => {
+    dispatch(fetchCompaniesAsync(50))
   }, []);
-
-  useEffect(() => {
-    console.log({ company_state })
-  }, [company_state]);
 
 
   return (
@@ -29,7 +25,7 @@ function App() {
       {
         company_state.status === 'idle' &&
         company_state.value.length > 0 &&
-        <RentalDashboard />
+        <VisualizationContainer />
       }
 
     </Fragment>
